@@ -95,11 +95,6 @@ resource "yandex_vpc_security_group" "ssh-from-basion" {
     v4_cidr_blocks = ["192.168.1.0/24", "192.168.2.0/24"]
   }
 
-  #ingress {
-  #  protocol       = "ICMP"
-  #  description    = "ping from bastion host"
-  #  security_group_id = yandex_vpc_security_group.bastion-sg.id
-  #}
 }
 
 resource "yandex_vpc_security_group" "filebeat-sg" {
@@ -181,7 +176,7 @@ resource "yandex_vpc_security_group" "zabbix-server-sg" {
   
   egress {
     protocol       = "ANY"
-    description    = "any to install all nhe things"
+    description    = "any to install all the things"
     v4_cidr_blocks = ["0.0.0.0/0"]
     from_port      = 1
     to_port        = 65535

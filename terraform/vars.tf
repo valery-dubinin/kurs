@@ -9,3 +9,7 @@ variable "yc_folder_id" {
 variable "yc_service_acc_id" {
   default = "ajei6acl5dm7pcuoa19q"
 }
+
+#variable "yc_token" {
+#  default = "Your token here (yc iam create-token)"
+#}
