@@ -53,15 +53,56 @@
 Протестируйте сайт
 `curl -v <публичный IP балансера>:80` 
 
+### Решение:
+
+Балансировщик доступен по ссылке: http://158.160.173.17/
+
+Таргет-группа:
+
+![img](https://github.com/valery-dubinin/kurs/blob/master/img/10.png)
+
+Тестируем:
+
+![img](https://github.com/valery-dubinin/kurs/blob/master/img/1.png)
+
+![img](https://github.com/valery-dubinin/kurs/blob/master/img/2.png)
+
+![img](https://github.com/valery-dubinin/kurs/blob/master/img/3.png)
+
+Сами машины развернуты на основе Instance-Group
+
+![img](https://github.com/valery-dubinin/kurs/blob/master/img/4.png)
+
 ### Мониторинг
 Создайте ВМ, разверните на ней Zabbix. На каждую ВМ установите Zabbix Agent, настройте агенты на отправление метрик в Zabbix. 
 
 Настройте дешборды с отображением метрик, минимальный набор — по принципу USE (Utilization, Saturation, Errors) для CPU, RAM, диски, сеть, http запросов к веб-серверам. Добавьте необходимые tresholds на соответствующие графики.
 
+### Решение
+
+Zabbix доступен по ссылке: http://178.154.224.19:8080/zabbix.php?action=dashboard.view
+
+Работающие хосты:
+
+![img](https://github.com/valery-dubinin/kurs/blob/master/img/5.png)
+
+Дашборды:
+
+![img](https://github.com/valery-dubinin/kurs/blob/master/img/6.png)
+
+
 ### Логи
 Cоздайте ВМ, разверните на ней Elasticsearch. Установите filebeat в ВМ к веб-серверам, настройте на отправку access.log, error.log nginx в Elasticsearch.
 
 Создайте ВМ, разверните на ней Kibana, сконфигурируйте соединение с Elasticsearch.
+
+### Решение
+
+Kibana с подлюченным Elasticsearch доступна по ссылке: http://178.154.227.242:5601/app/discover#/?_g=(filters:!(),refreshInterval:(pause:!t,value:0),time:(from:'2024-07-02T09:30:00.000Z',to:now))&_a=(columns:!(),filters:!(),index:'filebeat-*',interval:auto,query:(language:kuery,query:''),sort:!(!('@timestamp',desc)))
+
+Скрины:
+
+![img](https://github.com/valery-dubinin/kurs/blob/master/img/7.png)
 
 ### Сеть
 Разверните один VPC. Сервера web, Elasticsearch поместите в приватные подсети. Сервера Zabbix, Kibana, application load balancer определите в публичную подсеть.
@@ -72,8 +113,20 @@ Cоздайте ВМ, разверните на ней Elasticsearch. Устан
 
 Исходящий доступ в интернет для ВМ внутреннего контура через [NAT-шлюз](https://yandex.cloud/ru/docs/vpc/operations/create-nat-gateway).
 
+### Решение
+
+Группы безопасности можно увидеть тут: https://github.com/valery-dubinin/kurs/blob/master/terraform/security_group.tf
+
+![img](https://github.com/valery-dubinin/kurs/blob/master/img/8.png)
+
 ### Резервное копирование
 Создайте snapshot дисков всех ВМ. Ограничьте время жизни snaphot в неделю. Сами snaphot настройте на ежедневное копирование.
+
+### Решение
+
+Снапшоты настроены тут: https://github.com/valery-dubinin/kurs/blob/master/terraform/snaphots.tf
+
+![img](https://github.com/valery-dubinin/kurs/blob/master/img/9.png)
 
 ### Дополнительно
 Не входит в минимальные требования. 
