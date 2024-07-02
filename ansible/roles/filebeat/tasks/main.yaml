@@ -1,0 +1,36 @@
+---
+- name: ping server
+  ping:
+
+- name: install gnupg, apt-transport-https
+  apt:
+    name:
+      - apt-transport-https
+      - gnupg
+    state: present
+
+
+- name: Download and install filebeat
+  apt:
+    deb: https://mirror.yandex.ru/mirrors/elastic/7/pool/main/f/filebeat/filebeat-7.17.14-amd64.deb
+
+
+- name: Copy config file for filebeat
+  ansible.builtin.copy: 
+    src: /home/user/kurs/ansible/roles/filebeat/files/filebeat.yml
+    dest: /etc/filebeat
+
+
+- name: nginx restart
+  service:    
+    name: nginx
+    state: restarted   
+
+
+- name: enable and restart filebeat
+  ansible.builtin.systemd:
+    name: filebeat
+    enabled: true
+    masked: no
+    state: restarted
+

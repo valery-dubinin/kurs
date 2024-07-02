@@ -1,0 +1,8 @@
+- hosts: zabbix-agent
+  remote_user: user
+  become: true
+  become_method: sudo
+  vars:
+    - zabbix_server: zabbix-server.ru-central1.internal # insert int IP 
+  roles:
+    - zabbix-agent
