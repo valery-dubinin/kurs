@@ -1,6 +1,6 @@
 #---
 - hosts: zabbix-server
-  remote_user: gabber
+  remote_user: user
   become: yes
   become_method: sudo
   vars:
